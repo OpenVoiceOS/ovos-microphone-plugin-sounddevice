@@ -61,10 +61,7 @@ class SounDeviceMicrophone(Microphone):
             self.sample_channels,
         )
 
-        if self.device != "default":
-            index = self.find_input_device(self.device)
-        else:
-            index = 0
+        index = self.find_input_device(self.device)
 
         self.stream = sd.RawInputStream(
             samplerate=self.sample_rate,
