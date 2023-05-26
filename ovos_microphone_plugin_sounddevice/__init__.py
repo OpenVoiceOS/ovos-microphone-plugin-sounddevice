@@ -120,4 +120,4 @@ class SounDeviceMicrophone(Microphone):
                     stream.close()
 
         except Exception:
-            LOG.exception("Unexpected error in pyaudio microphone thread")
+            LOG.exception("Unexpected error in sounddevice microphone thread")

@@ -2,7 +2,9 @@ import fileinput
 from os.path import join, dirname
 
 
-version_file = join(dirname(dirname(__file__)), "ovos_microphone_plugin_pyaudio", "version.py")
+version_file = join(
+    dirname(dirname(__file__)), "ovos_microphone_plugin_sounddevice", "version.py"
+)
 version_var_name = "VERSION_ALPHA"
 
 with open(version_file, "r", encoding="utf-8") as v:
@@ -15,4 +17,4 @@ for line in fileinput.input(version_file, inplace=True):
     if line.startswith(version_var_name):
         print(f"{version_var_name} = {new_version}")
     else:
-        print(line.rstrip('\n'))
+        print(line.rstrip("\n"))

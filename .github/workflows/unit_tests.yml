@@ -4,7 +4,7 @@ on:
     branches:
       - dev
     paths-ignore:
-      - 'ovos_microphone_plugin_pyaudio/version.py'
+      - 'ovos_microphone_plugin_sounddevice/version.py'
       - 'requirements/**'
       - 'examples/**'
       - '.github/**'
@@ -18,7 +18,7 @@ on:
     branches:
       - master
     paths-ignore:
-      - 'ovos_microphone_plugin_pyaudio/version.py'
+      - 'ovos_microphone_plugin_sounddevice/version.py'
       - 'requirements/**'
       - 'examples/**'
       - '.github/**'
@@ -56,7 +56,7 @@ jobs:
           pip install pytest pytest-timeout pytest-cov
       - name: Run unittests
         run: |
-          pytest --cov=ovos_microphone_plugin_pyaudio --cov-report xml test/unittests
+          pytest --cov=ovos_microphone_plugin_sounddevice --cov-report xml test/unittests
           # NOTE: additional pytest invocations should also add the --cov-append flag
           #       or they will overwrite previous invocations' coverage reports
           #       (for an example, see OVOS Skill Manager's workflow)

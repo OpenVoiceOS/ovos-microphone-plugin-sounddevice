@@ -6,7 +6,7 @@ on:
     branches:
       - dev
     paths-ignore:
-      - 'ovos_microphone_plugin_pyaudio/version.py'
+      - 'ovos_microphone_plugin_soundevice/version.py'
       - 'test/**'
       - 'examples/**'
       - '.github/**'
