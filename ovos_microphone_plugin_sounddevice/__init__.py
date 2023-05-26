@@ -29,7 +29,7 @@ class SounDeviceMicrophone(Microphone):
     multiplier: float = 1.0
     full_chunk = bytes()
     _queue: "Queue[Optional[bytes]]" = field(default_factory=Queue)
-    stream: sd.InputStream = None
+    stream: sd.RawInputStream = None
 
     @staticmethod
     def find_input_device(device_name):
