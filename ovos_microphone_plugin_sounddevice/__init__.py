@@ -65,11 +65,11 @@ class SounDeviceMicrophone(Microphone):
         else:
             index = 0
 
-        self.stream = sd.InputStream(
+        self.stream = sd.RawInputStream(
             samplerate=self.sample_rate,
             device=index,
             channels=1,
-            callback=self._stream_callback
+            callback=self._stream_callback,
         )
         self.stream.start()
 
