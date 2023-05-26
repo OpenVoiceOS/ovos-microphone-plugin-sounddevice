@@ -14,24 +14,22 @@ import audioop
 import re
 from dataclasses import dataclass, field
 from queue import Queue
-from threading import Thread
 from typing import Optional
 
 import sounddevice as sd
+from ovos_config import Configuration
 from ovos_plugin_manager.templates.microphone import Microphone
 from ovos_utils.log import LOG
-from speech_recognition import Microphone as _Mic
 
 
 @dataclass
 class SounDeviceMicrophone(Microphone):
-    device: str = "default"
+    device: str = Configuration().get("listener", {}).get("device") or "default"
     timeout: float = 5.0
     multiplier: float = 1.0
     full_chunk = bytes()
-    _thread: Optional[Thread] = None
     _queue: "Queue[Optional[bytes]]" = field(default_factory=Queue)
-    _is_running: bool = False
+    stream: sd.InputStream = None
 
     @staticmethod
     def find_input_device(device_name):
@@ -54,70 +52,37 @@ class SounDeviceMicrophone(Microphone):
         return None
 
     def start(self):
-        assert self._thread is None, "Already started"
-        self._is_running = True
-        self._thread = Thread(target=self._run, daemon=True)
-        self._thread.start()
+        assert self.stream is None, "Already started"
+        LOG.debug(
+            "Opening microphone (rate=%s, width=%s, channels=%s)",
+            self.sample_rate,
+            self.sample_width,
+            self.sample_channels,
+        )
+
+        if self.device != "default":
+            index = self.find_input_device(self.device)
+        else:
+            index = 0
+
+        self.stream = sd.InputStream(
+            samplerate=self.sample_rate,
+            device=index,
+            channels=1,
+            callback=self._stream_callback
+        )
+        self.stream.start()
 
     def read_chunk(self) -> Optional[bytes]:
-        assert self._is_running, "Not running"
+        assert self.stream is not None, "Not running"
         return self._queue.get(timeout=self.timeout)
 
     def stop(self):
-        assert self._thread is not None, "Not started"
-        self._is_running = False
-        while not self._queue.empty():
-            self._queue.get()
-        self._queue.put_nowait(None)
-        self._thread.join()
-        self._thread = None
+        if self.stream:
+            self.stream.stop()
+            self.stream = None
 
     def _stream_callback(self, in_data, frames, time, status):
         if self.multiplier != 1.0:
             in_data = audioop.mul(in_data, self.sample_width, self.multiplier)
-
-    def _run(self):
-        try:
-            assert self.sample_width in {
-                2,
-                4,
-            }, "Only 16-bit and 32-bit sample widths are supported"
-
-            stream = None
-            try:
-                LOG.debug(
-                    "Opening microphone (rate=%s, width=%s, channels=%s)",
-                    self.sample_rate,
-                    self.sample_width,
-                    self.sample_channels,
-                )
-
-                if self.device != "default":
-                    index = self.find_input_device(self.device)
-                    source = _Mic(
-                        device_index=index,
-                        sample_rate=self.sample_rate,
-                        chunk_size=self.chunk_size,
-                    )
-                else:
-                    source = _Mic(
-                        sample_rate=self.sample_rate, chunk_size=self.chunk_size
-                    )
-
-                stream = sd.InputStream(
-                    samplerate=source.SAMPLE_RATE,
-                    device=source.device_index,
-                    channels=1,
-                    callback=self._stream_callback,
-                )
-                stream.start()
-
-            except Exception:
-                LOG.exception("Failed to open microphone")
-            finally:
-                if stream:
-                    stream.stop()
-                    stream.close()
-
-        except Exception:
-            LOG.exception("Unexpected error in sounddevice microphone thread")
+        self._queue.put(in_data)
