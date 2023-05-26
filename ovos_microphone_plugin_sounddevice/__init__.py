@@ -54,7 +54,8 @@ class SounDeviceMicrophone(Microphone):
     def start(self):
         assert self.stream is None, "Already started"
         LOG.debug(
-            "Opening microphone (rate=%s, width=%s, channels=%s)",
+            "Opening microphone (device=%s, rate=%s, width=%s, channels=%s)",
+            self.device,
             self.sample_rate,
             self.sample_width,
             self.sample_channels,
