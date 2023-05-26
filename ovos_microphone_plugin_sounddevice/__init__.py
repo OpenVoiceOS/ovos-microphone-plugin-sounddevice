@@ -46,7 +46,7 @@ class SounDeviceMicrophone(Microphone):
         for device_index in range(len(sd.query_devices())):
             dev = sd.query_devices(device_index)
             LOG.debug("   {}".format(dev["name"]))
-            if dev["maxInputChannels"] > 0 and pattern.match(dev["name"]):
+            if dev["max_input_channels"] > 0 and pattern.match(dev["name"]):
                 LOG.debug("    ^-- matched")
                 return device_index
         return None
