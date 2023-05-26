@@ -23,7 +23,7 @@ from ovos_utils.log import LOG
 
 
 @dataclass
-class SounDeviceMicrophone(Microphone):
+class SoundDeviceMicrophone(Microphone):
     device: str = Configuration().get("listener", {}).get("device") or "default"
     timeout: float = 5.0
     multiplier: float = 1.0
