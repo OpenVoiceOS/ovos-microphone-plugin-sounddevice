@@ -66,7 +66,7 @@ class SoundDeviceMicrophone(Microphone):
             device=index,
             channels=1,
             blocksize=2048,
-            dtype="int16"
+            dtype="int16",
             callback=self._stream_callback,
         )
         self.stream.start()
