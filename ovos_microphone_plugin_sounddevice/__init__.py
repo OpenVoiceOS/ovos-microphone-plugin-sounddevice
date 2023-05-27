@@ -27,8 +27,7 @@ class SoundDeviceMicrophone(Microphone):
     device: str = Configuration().get("listener", {}).get("device") or "default"
     timeout: float = 5.0
     multiplier: float = 1.0
-    full_chunk = bytes()
-    _queue: "Queue[Optional[bytes]]" = field(default_factory=Queue)
+    _queue: Queue[Optional[bytes]] = field(default_factory=Queue)
     stream: sd.RawInputStream = None
 
     @staticmethod
