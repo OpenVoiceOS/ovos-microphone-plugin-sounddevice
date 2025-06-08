@@ -1,28 +1,16 @@
 # Changelog
 
-## [0.0.0a3](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/0.0.0a3) (2024-09-11)
+## [0.0.1a1](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/0.0.1a1) (2025-06-08)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/V0.0.0a2...0.0.0a3)
-
-**Fixed bugs:**
-
-- High CPU consumption on Mac OS if device\_name not specified in mycroft.conf [\#2](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/issues/2)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/V0.0.0...0.0.1a1)
 
 **Merged pull requests:**
 
-- feat:semver [\#5](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/pull/5) ([JarbasAl](https://github.com/JarbasAl))
+- fix: compatibility with ovos-plugin-manager 1.X.X [\#6](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/pull/6) ([JarbasAl](https://github.com/JarbasAl))
 
-## [V0.0.0a2](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/V0.0.0a2) (2023-05-28)
+## [V0.0.0](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/V0.0.0) (2024-09-11)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/a70c5100dedde894f2b359d98ec6e31685e08468...V0.0.0a2)
-
-**Fixed bugs:**
-
-- RawInputStream: Invalid number of channels \[PaErrorCode -9998\] [\#3](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/issues/3)
-
-**Merged pull requests:**
-
-- simplify [\#1](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/pull/1) ([JarbasAl](https://github.com/JarbasAl))
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/0.0.0...V0.0.0)
 
 
 
