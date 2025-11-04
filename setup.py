@@ -55,7 +55,7 @@ PLUGIN_ENTRY_POINT = "ovos-microphone-plugin-sounddevice = ovos_microphone_plugi
 
 
 setup(
-    name="ovos-microphone-plugin-sounddevice",
+    name="ovos_microphone_plugin_sounddevice",
     version=get_version(),
     description="A sounddevice microphone implementation for OVOS",
     url="https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice",
