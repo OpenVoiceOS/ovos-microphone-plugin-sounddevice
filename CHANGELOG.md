@@ -1,20 +1,16 @@
 # Changelog
 
-## [0.0.2a1](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/0.0.2a1) (2025-11-04)
+## [0.0.3a1](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/0.0.3a1) (2025-12-19)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/V0.0.1...0.0.2a1)
-
-**Fixed bugs:**
-
-- When microphone got disconnected [\#4](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/issues/4)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/V0.0.2...0.0.3a1)
 
 **Merged pull requests:**
 
-- Update ovos-plugin-manager version constraint [\#7](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/pull/7) ([JarbasAl](https://github.com/JarbasAl))
+- chore: Configure Renovate [\#8](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/pull/8) ([renovate[bot]](https://github.com/apps/renovate))
 
-## [V0.0.1](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/V0.0.1) (2025-06-08)
+## [V0.0.2](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/V0.0.2) (2025-11-04)
 
-[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/0.0.1...V0.0.1)
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/0.0.2...V0.0.2)
 
 
 
