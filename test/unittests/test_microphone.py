@@ -2,7 +2,7 @@ import struct
 import unittest
 from unittest.mock import Mock, patch
 
-from ovos_microphone_plugin_sounddevice import SoundDeviceMicrophone
+from ovos_microphone_plugin_sounddevice import SoundDeviceMicrophone, _default_device
 
 
 def _fake_devices():
@@ -27,6 +27,27 @@ def _fake_devices():
 
 
 class TestSoundDeviceMicrophone(unittest.TestCase):
+    @patch("ovos_microphone_plugin_sounddevice.Configuration")
+    def test_default_device_preserves_module_device_index_zero(self, mock_configuration):
+        mock_configuration.return_value.get.return_value = {
+            "microphone": {
+                "module": "sounddevice",
+                "sounddevice": {"device": 0},
+            },
+            "device": 3,
+        }
+
+        self.assertEqual(_default_device(), 0)
+
+    @patch("ovos_microphone_plugin_sounddevice.Configuration")
+    def test_default_device_preserves_listener_device_index_zero(self, mock_configuration):
+        mock_configuration.return_value.get.return_value = {
+            "microphone": {"module": "sounddevice", "sounddevice": {}},
+            "device": 0,
+        }
+
+        self.assertEqual(_default_device(), 0)
+
     @patch("ovos_microphone_plugin_sounddevice.sd.query_devices")
     def test_find_input_device_supports_exact_substring_regex_and_index(
         self, mock_query_devices
@@ -89,6 +110,27 @@ class TestSoundDeviceMicrophone(unittest.TestCase):
         fake_stream.stop.assert_called_once()
         fake_stream.close.assert_called_once()
         self.assertIsNone(mic.stream)
+
+    def test_stop_cleans_state_even_if_close_raises(self):
+        mic = SoundDeviceMicrophone(chunk_size=4, sample_width=2, sample_channels=1)
+        fake_stream = Mock()
+        fake_stream.close.side_effect = RuntimeError("close failed")
+        mic.stream = fake_stream
+        mic._chunk_buffer.extend(b"1234")
+        mic._queue.put_nowait(b"abcd")
+        mic._ratecv_state = object()
+        mic._resample_tail = 42
+
+        with self.assertRaises(RuntimeError):
+            mic.stop()
+
+        fake_stream.stop.assert_called_once()
+        fake_stream.close.assert_called_once()
+        self.assertIsNone(mic.stream)
+        self.assertEqual(mic._chunk_buffer, bytearray())
+        self.assertTrue(mic._queue.empty())
+        self.assertIsNone(mic._ratecv_state)
+        self.assertIsNone(mic._resample_tail)
 
     @patch("ovos_microphone_plugin_sounddevice.sd.RawInputStream")
     @patch("ovos_microphone_plugin_sounddevice.sd.check_input_settings")

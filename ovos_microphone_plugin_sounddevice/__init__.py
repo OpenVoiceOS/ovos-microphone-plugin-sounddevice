@@ -38,9 +38,12 @@ def _default_device() -> DeviceRef:
         module_name = microphone.get("module")
         if module_name and isinstance(microphone.get(module_name), dict):
             device = microphone[module_name].get("device")
-            if device:
+            if device is not None:
                 return device
-    return listener.get("device") or "default"
+    device = listener.get("device")
+    if device is not None:
+        return device
+    return "default"
 
 
 @dataclass
@@ -530,16 +533,19 @@ class SoundDeviceMicrophone(Microphone):
             return None
 
     def stop(self):
-        if self.stream:
+        if self.stream is not None:
+            stream = self.stream
             try:
-                self.stream.stop()
+                stream.stop()
             finally:
-                self.stream.close()
-                self.stream = None
-                self._chunk_buffer.clear()
-                self._clear_queue()
-                self._ratecv_state = None
-                self._resample_tail = None
+                try:
+                    stream.close()
+                finally:
+                    self.stream = None
+                    self._chunk_buffer.clear()
+                    self._clear_queue()
+                    self._ratecv_state = None
+                    self._resample_tail = None
 
     def _stream_callback(self, in_data, frames, time_info, status):
         if status:
