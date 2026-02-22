@@ -65,7 +65,7 @@ class TestSoundDeviceMicrophone(unittest.TestCase):
 
     @patch("ovos_microphone_plugin_sounddevice.sd.RawInputStream")
     @patch("ovos_microphone_plugin_sounddevice.sd.check_input_settings")
-    @patch("ovos_microphone_plugin_sounddevice.sd.CoreAudioSettings")
+    @patch("ovos_microphone_plugin_sounddevice.sd.CoreAudioSettings", create=True)
     @patch("ovos_microphone_plugin_sounddevice.sd.query_hostapis")
     @patch("ovos_microphone_plugin_sounddevice.sd.query_devices")
     @patch("ovos_microphone_plugin_sounddevice.sys.platform", "darwin")
@@ -134,7 +134,7 @@ class TestSoundDeviceMicrophone(unittest.TestCase):
 
     @patch("ovos_microphone_plugin_sounddevice.sd.RawInputStream")
     @patch("ovos_microphone_plugin_sounddevice.sd.check_input_settings")
-    @patch("ovos_microphone_plugin_sounddevice.sd.CoreAudioSettings")
+    @patch("ovos_microphone_plugin_sounddevice.sd.CoreAudioSettings", create=True)
     @patch("ovos_microphone_plugin_sounddevice.sd.query_hostapis")
     @patch("ovos_microphone_plugin_sounddevice.sd.query_devices")
     @patch("ovos_microphone_plugin_sounddevice.sys.platform", "darwin")
