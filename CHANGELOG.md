@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a3](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/0.0.3a3) (2026-02-24)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/0.0.3a2...0.0.3a3)
+
+**Implemented enhancements:**
+
+- Using AI to refactor the code [\#16](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/pull/16) ([goldyfruit](https://github.com/goldyfruit))
+
 ## [0.0.3a2](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/0.0.3a2) (2025-12-19)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/0.0.3a1...0.0.3a2)
