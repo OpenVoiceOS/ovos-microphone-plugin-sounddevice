@@ -15,3 +15,4 @@ jobs:
       test_path: 'test'
       install_extras: '.[test]'
       min_coverage: 0
+      system_deps: 'libportaudio2'
