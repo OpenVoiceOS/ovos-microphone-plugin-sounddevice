@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3a9](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/0.0.3a9) (2026-07-31)
+
+[Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/0.0.3a8...0.0.3a9)
+
+**Merged pull requests:**
+
+- docs: rewrite README in Simplified Technical English [\#21](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/pull/21) ([JarbasAl](https://github.com/JarbasAl))
+
 ## [0.0.3a8](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/tree/0.0.3a8) (2026-06-16)
 
 [Full Changelog](https://github.com/OpenVoiceOS/ovos-microphone-plugin-sounddevice/compare/0.0.3a4...0.0.3a8)
