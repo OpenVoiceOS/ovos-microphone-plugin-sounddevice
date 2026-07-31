@@ -1,13 +1,10 @@
 ## Description
 
-Open Voice OS microphone plugin for [python-sounddevice](https://github.com/spatialaudio/python-sounddevice/) library.
+This plugin lets OpenVoiceOS (OVOS) capture microphone audio through [python-sounddevice](https://github.com/spatialaudio/python-sounddevice/).
 
-`python-sounddevice` uses [PortAudio](http://www.portaudio.com/) as audio library to interact with audio components.
+`python-sounddevice` uses [PortAudio](http://www.portaudio.com/) to talk to audio hardware. PortAudio is a free, cross-platform, open-source audio I/O library. It works in C or C++ on Windows, macOS, and Unix (OSS/ALSA).
 
-> PortAudio is a free, cross-platform, open-source, audio I/O library.  It lets you write simple audio programs in 'C' or C++ that will compile and run on many platforms including Windows, Macintosh OS X, and Unix (OSS/ALSA). It is intended to promote the exchange of audio software between developers on different platforms. Many applications use PortAudio for Audio I/O.
-
-This plugin is ideal for macOS (Intel and Apple Silicon) and also works on Linux.
-On macOS it uses CoreAudio stream settings tuned for clear wake-word and STT capture.
+The plugin works best on macOS (Intel and Apple Silicon) and also runs on Linux. On macOS it uses CoreAudio stream settings tuned for clear wake-word and speech-to-text (STT) capture.
 
 ## Install
 
@@ -17,7 +14,7 @@ pip install ovos-microphone-plugin-sounddevice
 
 ## Configuration
 
-In order to inform the listener which plugin to use *(default is set to `ovos-microphone-plugin-alsa`)*, the `mycroft.conf` configuration file should be updated.
+The listener defaults to the `ovos-microphone-plugin-alsa` plugin. To use this plugin instead, update the `mycroft.conf` configuration file:
 
 ```json
 {
@@ -30,7 +27,7 @@ In order to inform the listener which plugin to use *(default is set to `ovos-mi
 }
 ```
 
-### macOS Recommended (Clear Capture)
+### macOS recommended settings (clear capture)
 
 ```json
 {
@@ -56,18 +53,30 @@ In order to inform the listener which plugin to use *(default is set to `ovos-mi
 }
 ```
 
-### Device Selection
+### Device selection
+
+Set `device` to one of these forms:
 
 - Exact name: `"device": "Built-in Microphone"`
 - Substring match: `"device": "Built-in"`
 - Regex match: `"device": "regex:^MacBook.*Microphone"`
 - Numeric index: `"device": 0`
-- Default input device: omit `device` or set `"device": "default"`
+- Default input device: omit `device`, or set `"device": "default"`
 
 ### Notes
 
 - Keep `multiplier` near `1.0` for the cleanest signal.
 - Increase `multiplier` only if the microphone is too quiet.
-- If clipping/distortion appears, reduce `multiplier` below `1.0`.
-- If `16000 Hz` input is not supported by hardware, the plugin can open the device at native sample rate and resample to `16000 Hz` for OVOS.
-- `blocksize` controls callback cadence; lower values usually improve wakeword responsiveness.
+- Reduce `multiplier` below `1.0` if clipping or distortion appears.
+- If the hardware does not support `16000 Hz` input, the plugin can open the device at its native sample rate and resample to `16000 Hz` for OVOS.
+- `blocksize` controls callback cadence. Lower values usually improve wake-word responsiveness.
+
+## Related projects
+
+- [OpenVoiceOS/ovos-plugin-manager](https://github.com/OpenVoiceOS/ovos-plugin-manager) — loads and manages this plugin.
+- [OpenVoiceOS/ovos-dinkum-listener](https://github.com/OpenVoiceOS/ovos-dinkum-listener) — the OVOS listener that consumes microphone plugins.
+- [spatialaudio/python-sounddevice](https://github.com/spatialaudio/python-sounddevice/) — the audio library this plugin wraps.
+
+## License
+
+Apache-2.0, see [LICENSE](LICENSE).
